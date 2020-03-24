@@ -2,8 +2,8 @@ let poseNet, img;
 
 async function retornarEsqueletosAsync(imagemBase64, desenhar) {
 
-    if (!poseNet) {
-        poseNet = await carregarPoseNet();
+    if (!poseNetHorizontal) {
+        poseNetHorizontal = await carregarPoseNet();
     }
 
     if (img) {
@@ -12,10 +12,10 @@ async function retornarEsqueletosAsync(imagemBase64, desenhar) {
 
     img = await carregarImagem(imagemBase64);
 
-    var poses = await retornarPoses(poseNet, img);
+    var poses = await retornarPoses(poseNetHorizontal, img);
 
     if (desenhar) {
-        desenharPoses(img, poses)
+        desenhar(img, poses)
     }
 
     return poses;
@@ -113,7 +113,7 @@ function retornarPoses(poseNet, img) {
 
 }
 
-function desenharPoses(img, poses) {
+function desenhar(img, poses) {
 
     var canvas = document.getElementById('canvas');
     var canvasContext = canvas.getContext("2d");
@@ -125,13 +125,13 @@ function desenharPoses(img, poses) {
 
     canvasContext.drawImage(img, 0, 0);
 
-    desenharEsqueleto(poses, canvasContext);
+    desenharPoses(poses, canvasContext);
 
     desenharPontos(poses, canvasContext);
 
 }
 
-function desenharEsqueleto(poses, canvasContext) {
+function desenharPoses(poses, canvasContext) {
 
     for (let i = 0; i < poses.length; i++) {
 
