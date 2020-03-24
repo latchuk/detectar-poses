@@ -34,9 +34,10 @@
 
                 var imagemBase64 = reader.result;
 
-                var esqueletos = await retornarEsqueletosAsync(imagemBase64, 0.5, true, 0.18);
+                // var esqueletos = await retornarEsqueletosAsync(imagemBase64, 0.5, true, 0.18);
+                retornarEsqueletosAsync(imagemBase64, 0.6, true, 0.18);
 
-                console.log(esqueletos);
+                // console.log(esqueletos);
             };
 
             reader.readAsDataURL(input.files[0]);

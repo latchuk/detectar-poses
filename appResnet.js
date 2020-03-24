@@ -19,7 +19,7 @@ async function retornarEsqueletosAsync(imagemBase64, escalaImagem, podeDesenhar,
         poseNet = poseNetVertical;
     }
 
-    const tempo1 = new Date();
+    // const tempo1 = new Date();
 
     var poses = await poseNet.estimateMultiplePoses(img, {
         flipHorizontal: false,
@@ -28,14 +28,16 @@ async function retornarEsqueletosAsync(imagemBase64, escalaImagem, podeDesenhar,
         nmsRadius: 40
     });
 
-    const tempo2 = new Date();
-    const diferenca = tempo2 - tempo1;
+    // const tempo2 = new Date();
+    // const diferenca = tempo2 - tempo1;
 
-    console.log("Tempo para detectar poses: " + diferenca);
+    // console.log("Tempo para detectar poses: " + diferenca);
 
     if (podeDesenhar) {
         desenhar(img, poses, scoreMinimoDesenhar)
     }
+
+    console.log({ poses });
 
     return poses;
 
@@ -45,7 +47,7 @@ async function retornarPoseNetOrientacao(poseNetOrientacao, escalaImagem) {
 
     if (!poseNetOrientacao) {
 
-        const tempo1 = new Date();
+        // const tempo1 = new Date();
 
         poseNetOrientacao = await posenet.load({
             architecture: 'ResNet50',
@@ -54,10 +56,10 @@ async function retornarPoseNetOrientacao(poseNetOrientacao, escalaImagem) {
             inputResolution: { width: img.width * escalaImagem, height: img.height * escalaImagem },
         });
 
-        const tempo2 = new Date();
-        const diferenca = tempo2 - tempo1;
+        // const tempo2 = new Date();
+        // const diferenca = tempo2 - tempo1;
 
-        console.log("Tempo para carregar o modelo: " + diferenca);
+        // console.log("Tempo para carregar o modelo: " + diferenca);
 
     }
 
@@ -109,7 +111,6 @@ function desenhar(img, poses, scoreMinimo) {
     desenharPontos(poses, canvasContext, scoreMinimo);
 
 }
-
 
 function desenharPoses(poses, canvasContext, scoreMinimo) {
 
@@ -262,7 +263,6 @@ function retornarEscalaDesenho(pose) {
     const troncoBase = 800;
 
     const escala = alturaTronco / troncoBase;
-    // console.log(escala);
 
     return escala;
 
